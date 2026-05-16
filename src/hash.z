@@ -1,0 +1,11 @@
+/// Generic hash trait for Bitcoin hashing primitives
+pub trait Hash {
+    /// Hash data, producing a new hash digest
+    fn hash(data: &[u8]) -> Self;
+
+    /// Create a hash from a byte slice
+    fn from_slice(bytes: &[u8]) -> Result<Self>;
+
+    /// Convert hash to a byte array
+    fn to_byte_array(self) -> [u8];
+}

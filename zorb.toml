@@ -1,0 +1,13 @@
+[package]
+name = "@crypto/bitcoin-hashes"
+version = "0.17.0"
+edition = "2026"
+authors = ["The Zeta Foundation <team@z-lang.org>"]
+description = "Bitcoin hashing primitives for Zeta — SHA256, SHA256d, Hash160, SHA512"
+license = "MIT"
+repository = "https://github.com/murphsicles/bitcoin-hashes"
+keywords = ["bitcoin", "hash", "sha256", "crypto", "bsv"]
+categories = ["cryptography::hash"]
+
+[dependencies]
+@crypto/ripemd = "0.1.3"

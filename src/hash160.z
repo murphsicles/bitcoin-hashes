@@ -1,0 +1,50 @@
+/// Hash160 — RIPEMD160(SHA256(x))
+/// Used in Bitcoin address generation
+
+use @crypto/ripemd::{ripemd160};
+
+pub struct Hash160 {
+    inner: [u8; 20],
+}
+
+impl Hash160 {
+    pub fn new() -> Self {
+        Self { inner: [0u8; 20] }
+    }
+
+    /// Compute Hash160 (RIPEMD160 of SHA256) of data
+    pub fn hash(data: &[u8]) -> Self {
+        let sha = Sha256::hash(data);
+        let ripe = ripemd160(sha.to_byte_array()[..]);
+        let mut inner = [0u8; 20];
+        inner.copy_from_slice(ripe[..]);
+        Self { inner }
+    }
+
+    pub fn from_slice(bytes: &[u8]) -> Result<Self> {
+        if bytes.len() != 20 {
+            return Err("Hash160 must be exactly 20 bytes");
+        }
+        let mut inner = [0u8; 20];
+        inner.copy_from_slice(bytes);
+        Ok(Self { inner })
+    }
+
+    pub fn to_byte_array(self) -> [u8; 20] {
+        self.inner
+    }
+}
+
+impl Hash for Hash160 {
+    fn hash(data: &[u8]) -> Self {
+        Hash160::hash(data)
+    }
+
+    fn from_slice(bytes: &[u8]) -> Result<Self> {
+        Hash160::from_slice(bytes)
+    }
+
+    fn to_byte_array(self) -> [u8] {
+        self.inner[..]
+    }
+}
